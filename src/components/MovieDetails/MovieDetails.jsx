@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import {} from 'react-router-dom';
 
 import {
   Box,
@@ -14,29 +14,33 @@ import {
 } from '@chakra-ui/react';
 
 const MovieDetails = ({ movie }) => {
-  const location = useLocation();
+  // const location = useLocation();
+  // const backLink = useRef(location.state?.from ?? '/');
+
+  const handleGoBack = () => {
+    window.history.back();
+  };
 
   return (
     <>
       {movie.length !== 0 && (
         <Container maxW="container.lg">
-          <Link to={location.state ?? '/'}>
-            <Button
-              variant="ghost"
-              color="brand.200"
-              fontSize={[15, 20, 20]}
-              type="button"
-              mb="2px"
-              _hover={{
-                shadow: '1px 1px 15px 1px ',
-                bg: '#FFE4C4',
-                color: 'brand.100',
-                border: '1px solid brand.100',
-              }}
-            >
-              Go back
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            color="brand.200"
+            fontSize={[15, 20, 20]}
+            type="button"
+            mb="2px"
+            _hover={{
+              shadow: '1px 1px 15px 1px ',
+              bg: '#FFE4C4',
+              color: 'brand.100',
+              border: '1px solid brand.100',
+            }}
+            onClick={handleGoBack}
+          >
+            Go back
+          </Button>
           <Card
             direction={{ base: 'column', sm: 'row' }}
             overflow="hidden"

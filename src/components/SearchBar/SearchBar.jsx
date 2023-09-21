@@ -1,28 +1,18 @@
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useSearchParams } from 'react-router-dom';
 import { Button, Input } from '@chakra-ui/react';
 import { toast } from 'react-toastify';
 
 const SearchBar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [searchQuery, setSearchQquery] = useState('');
-
-  const onHandleChange = e => {
-    const query = e.target.value.trim();
-    setSearchQquery(query);
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onHandleSubmit = e => {
     e.preventDefault();
-    if (searchQuery === '') {
+    const query = e.target.querySelector('input[name="query"]').value.trim();
+    if (!query) {
       return toast.info('заполни форму поиска');
     }
 
-    navigate(`?q=${searchQuery}`, {
-      state: location.state,
-    });
+    setSearchParams({ q: query });
   };
 
   return (
@@ -34,8 +24,8 @@ const SearchBar = () => {
         type="text"
         name="query"
         autoComplete="off"
+        defaultValue={searchParams.get("q")}
         placeholder="Movie search"
-        onChange={onHandleChange}
       ></Input>
       <Button
         variant="ghost"

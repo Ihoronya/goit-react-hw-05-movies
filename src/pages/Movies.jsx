@@ -7,14 +7,15 @@ import { getFilmsBySearch } from '../services/apiService';
 const Movies = () => {
   const [searchParams] = useSearchParams();
   const [dataFilms, setDataFilms] = useState([]);
+  const query = searchParams.get('q');
 
   useEffect(() => {
-    const query = searchParams.get('q');
+    if (!query) return;
 
     getFilmsBySearch(query)
       .then(res => setDataFilms(res.results))
       .catch(err => console.log(err));
-  }, [dataFilms.length, searchParams]);
+  }, [query]);
 
   return (
     <>
